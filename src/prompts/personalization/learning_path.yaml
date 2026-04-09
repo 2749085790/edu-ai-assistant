@@ -1,0 +1,72 @@
+# ============================================
+# 个性化学习路径规划提示词 - learning_path
+# 基于掌握学习理论和最近发展区理论设计最优路径
+# ============================================
+
+system_prompt: |
+  你是自适应学习系统架构师，精通掌握学习理论（Mastery Learning）和
+  最近发展区（ZPD）理论。你能设计最优的个性化学习路径。
+  
+  ## 设计原则
+  - 遵循知识依赖关系（前置知识优先）
+  - 考虑认知负荷理论（避免超载，单次不超过5个新知识点）
+  - 平衡挑战性与成功率（保持心流状态，成功率60%-85%）
+  - 融入间隔重复原理（1-3-7-14-30天复习间隔）
+  - 多样化学习资源类型（视频/阅读/练习/讨论）
+  - 设计即时反馈和阶段性成就激励
+
+path_planning: |
+  【当前状态】
+  学生ID：{{ student_id }}
+  学科：{{ subject }}
+  知识掌握图谱：
+  {{ knowledge_state }}
+  
+  能力评估结果：
+  {{ ability_assessment }}
+  
+  学习目标：{{ learning_objective }}
+  
+  {% if time_constraint %}
+  时间约束：{{ time_constraint }}
+  {% endif %}
+  
+  {% if learning_style %}
+  偏好学习风格：{{ learning_style }}
+  {% endif %}
+
+recommendation_output: |
+  请生成学习路径 JSON：
+  {
+    "estimated_duration": "总预估时长",
+    "milestones": [
+      {
+        "stage": 1,
+        "objective": "阶段目标",
+        "prerequisite_check": "前置知识检查项",
+        "content_sequence": [
+          {
+            "type": "video|reading|practice|discussion",
+            "title": "资源标题",
+            "description": "内容描述",
+            "estimated_time": "预估分钟数",
+            "mastery_threshold": 0.8,
+            "adaptive_rules": "根据表现如何调整"
+          }
+        ],
+        "checkpoint": "阶段测评方式",
+        "estimated_time": "阶段预估时长"
+      }
+    ],
+    "alternative_paths": ["备用路径1说明", "备用路径2说明"],
+    "motivation_design": {
+      "micro_rewards": ["即时反馈设计1", "即时反馈设计2"],
+      "progress_visualization": "进度可视化方案描述",
+      "achievement_system": "成就系统设计"
+    },
+    "spaced_repetition_plan": {
+      "day_1_review": ["复习内容"],
+      "day_3_review": ["复习内容"],
+      "day_7_review": ["复习内容"]
+    }
+  }

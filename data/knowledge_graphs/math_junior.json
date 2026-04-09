@@ -1,0 +1,182 @@
+{
+  "subject": "数学",
+  "level": "初中",
+  "version": "1.0",
+  "nodes": [
+    {
+      "id": "algebra_basic",
+      "name": "代数基础",
+      "category": "代数",
+      "children": [
+        {
+          "id": "rational_numbers",
+          "name": "有理数",
+          "prerequisites": [],
+          "grade": "七年级",
+          "difficulty": 0.3
+        },
+        {
+          "id": "expressions",
+          "name": "代数式",
+          "prerequisites": ["rational_numbers"],
+          "grade": "七年级",
+          "difficulty": 0.35
+        },
+        {
+          "id": "linear_equation_one",
+          "name": "一元一次方程",
+          "prerequisites": ["expressions"],
+          "grade": "七年级",
+          "difficulty": 0.4
+        },
+        {
+          "id": "factorization",
+          "name": "因式分解",
+          "prerequisites": ["expressions"],
+          "grade": "八年级",
+          "difficulty": 0.5
+        },
+        {
+          "id": "fraction_equation",
+          "name": "分式方程",
+          "prerequisites": ["linear_equation_one", "factorization"],
+          "grade": "八年级",
+          "difficulty": 0.55
+        },
+        {
+          "id": "quadratic_equation",
+          "name": "一元二次方程",
+          "prerequisites": ["linear_equation_one", "factorization"],
+          "grade": "八年级",
+          "difficulty": 0.6
+        }
+      ]
+    },
+    {
+      "id": "functions",
+      "name": "函数",
+      "category": "函数",
+      "children": [
+        {
+          "id": "coordinate_system",
+          "name": "平面直角坐标系",
+          "prerequisites": ["rational_numbers"],
+          "grade": "七年级",
+          "difficulty": 0.35
+        },
+        {
+          "id": "linear_function",
+          "name": "一次函数",
+          "prerequisites": ["linear_equation_one", "coordinate_system"],
+          "grade": "八年级",
+          "difficulty": 0.5
+        },
+        {
+          "id": "inverse_proportion",
+          "name": "反比例函数",
+          "prerequisites": ["linear_function"],
+          "grade": "八年级",
+          "difficulty": 0.55
+        },
+        {
+          "id": "quadratic_function",
+          "name": "二次函数",
+          "prerequisites": ["quadratic_equation", "coordinate_system", "linear_function"],
+          "grade": "九年级",
+          "difficulty": 0.7
+        }
+      ]
+    },
+    {
+      "id": "geometry",
+      "name": "几何",
+      "category": "几何",
+      "children": [
+        {
+          "id": "lines_angles",
+          "name": "线段与角",
+          "prerequisites": [],
+          "grade": "七年级",
+          "difficulty": 0.3
+        },
+        {
+          "id": "triangle_basic",
+          "name": "三角形基础",
+          "prerequisites": ["lines_angles"],
+          "grade": "七年级",
+          "difficulty": 0.4
+        },
+        {
+          "id": "congruent_triangle",
+          "name": "全等三角形",
+          "prerequisites": ["triangle_basic"],
+          "grade": "八年级",
+          "difficulty": 0.5
+        },
+        {
+          "id": "pythagorean_theorem",
+          "name": "勾股定理",
+          "prerequisites": ["triangle_basic", "square_root"],
+          "grade": "八年级",
+          "difficulty": 0.5
+        },
+        {
+          "id": "similar_triangle",
+          "name": "相似三角形",
+          "prerequisites": ["congruent_triangle", "ratio"],
+          "grade": "九年级",
+          "difficulty": 0.6
+        },
+        {
+          "id": "circle_properties",
+          "name": "圆的性质",
+          "prerequisites": ["lines_angles", "triangle_basic", "pythagorean_theorem"],
+          "grade": "九年级",
+          "difficulty": 0.65
+        }
+      ]
+    },
+    {
+      "id": "statistics",
+      "name": "统计与概率",
+      "category": "统计与概率",
+      "children": [
+        {
+          "id": "data_collection",
+          "name": "数据收集与整理",
+          "prerequisites": [],
+          "grade": "七年级",
+          "difficulty": 0.3
+        },
+        {
+          "id": "central_tendency",
+          "name": "数据的集中趋势",
+          "prerequisites": ["data_collection"],
+          "grade": "八年级",
+          "difficulty": 0.4
+        },
+        {
+          "id": "probability_basic",
+          "name": "概率初步",
+          "prerequisites": ["fraction", "ratio"],
+          "grade": "九年级",
+          "difficulty": 0.5
+        }
+      ]
+    }
+  ],
+  "edges": [
+    {"from": "rational_numbers", "to": "expressions", "relation": "prerequisite"},
+    {"from": "expressions", "to": "linear_equation_one", "relation": "prerequisite"},
+    {"from": "expressions", "to": "factorization", "relation": "prerequisite"},
+    {"from": "linear_equation_one", "to": "quadratic_equation", "relation": "prerequisite"},
+    {"from": "factorization", "to": "quadratic_equation", "relation": "prerequisite"},
+    {"from": "quadratic_equation", "to": "quadratic_function", "relation": "prerequisite"},
+    {"from": "coordinate_system", "to": "linear_function", "relation": "prerequisite"},
+    {"from": "linear_function", "to": "quadratic_function", "relation": "prerequisite"},
+    {"from": "triangle_basic", "to": "congruent_triangle", "relation": "prerequisite"},
+    {"from": "triangle_basic", "to": "pythagorean_theorem", "relation": "prerequisite"},
+    {"from": "congruent_triangle", "to": "similar_triangle", "relation": "prerequisite"},
+    {"from": "pythagorean_theorem", "to": "circle_properties", "relation": "prerequisite"}
+  ]
+}

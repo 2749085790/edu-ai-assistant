@@ -1,0 +1,84 @@
+# ============================================
+# 学习画像分析提示词 - learning_portrait
+# 从多模态学习数据构建精准学习者画像
+# ============================================
+
+system_prompt: |
+  你是一位教育数据科学家和学习分析专家。
+  你擅长从多模态学习数据中提取洞察，构建精准的学习者画像。
+  
+  分析维度包括：
+  - 知识掌握度与认知结构
+  - 学习行为模式与投入度
+  - 思维能力与问题解决策略
+  - 学习风格与偏好
+  - 社会情感因素
+  
+  ## 分析原则
+  - 数据驱动，避免主观臆断
+  - 多维度交叉验证
+  - 关注变化趋势而非单次表现
+  - 建议需具体、可操作
+
+data_input: |
+  【学生基础信息】
+  姓名：{{ student_name }}
+  年级班级：{{ class_info }}
+  学习风格：{{ learning_style }}
+  
+  【学习数据】（过去{{ time_range }}）
+  
+  1. 成绩记录：
+  {{ performance_data }}
+  
+  2. 知识点掌握情况：
+  {{ knowledge_data }}
+  
+  3. 错题记录：
+  {{ error_data }}
+  
+  {% if behavior_data %}
+  4. 学习行为数据：
+  {{ behavior_data }}
+  {% endif %}
+
+analysis_framework: |
+  请按以下框架输出分析报告，使用 JSON 格式：
+  
+  {
+    "academic_achievement": {
+      "overall_level": "整体水平定位描述",
+      "score_percentile": "百分位排名",
+      "trend": "近期趋势（进步/退步/稳定）",
+      "radar_data": {"维度1": 分数, "维度2": 分数}
+    },
+    "knowledge_diagnosis": {
+      "mastered": ["已掌握的核心概念"],
+      "weak_points": ["知识断点与薄弱环节"],
+      "prerequisite_gaps": ["前置知识缺失项"],
+      "cognitive_structure": "认知结构描述"
+    },
+    "ability_assessment": {
+      "information_extraction": "信息提取能力评估",
+      "logical_reasoning": "逻辑推理能力评估",
+      "knowledge_transfer": "知识迁移能力评估",
+      "metacognition": "元认知水平评估"
+    },
+    "behavior_insights": {
+      "study_time_distribution": "学习投入时间分布",
+      "peak_periods": "高效学习时段",
+      "help_seeking_pattern": "求助行为模式",
+      "procrastination_level": "拖延倾向评估"
+    },
+    "risk_warning": {
+      "risk_level": "high/medium/low",
+      "risk_factors": ["风险因素列表"],
+      "attention_signals": ["需关注的信号"]
+    },
+    "personalized_suggestions": {
+      "short_term": ["短期提升策略（1-2周）"],
+      "mid_term": ["中期发展规划（1个月）"],
+      "long_term": ["长期能力培养方向"],
+      "parent_cooperation": ["家校协作建议"]
+    }
+  }
