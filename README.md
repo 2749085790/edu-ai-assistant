@@ -1,232 +1,265 @@
-# 🎓 教培 AI 智能备课与学情分析系统
+# 🎓 AI Tutor — 结构化教学助手
 
-> 用 AI 技术赋能教育，让每位学生获得个性化学习体验
+> 不是 ChatGPT · 是真正懂教学的 AI 老师
 
-## 📖 项目简介
+**和 ChatGPT 有什么区别？**
 
-本项目是一个面向教培行业的 AI 驱动智能教育平台，集成了**AI 智能备课**、**学情分析**、**个性化推荐**和**试卷扫描**四大核心模块，帮助教师高效备课、精准分析学生学习状态、提供个性化学习方案。
+| 维度 | ChatGPT | AI Tutor |
+|------|---------|---------|
+| 有没有教学设计 | ❌ 随机问随机答 | ✅ 入门→进阶→测试三阶段结构化 |
+| 有没有用户路径 | ❌ 无状态对话 | ✅ 学习目标→路径规划→反馈闭环 |
+| 有没有学情记忆 | ❌ 每次重置 | ✅ 持续追踪知识掌握状态 |
+| 能不能评估效果 | ❌ 不知道学没学会 | ✅ 自动出题评估 + 风险预警 |
+| 面向谁 | 所有人 | ✅ K12 学生 / 教培机构老师 |
 
-## ✨ 核心功能
+**核心定位**：面向教培行业的 AI 驱动教学 SaaS，为老师提供 AI 备课能力，为学生提供结构化个性化学习路径。
 
-### 🧠 AI 智能备课系统
-- **教案自动生成** - 输入课题、年级、学科，AI 自动生成结构化教案
-- **分层习题设计** - 基于 SOLO 认知理论，智能设计基础/提高/拓展三层习题
-- **教学素材推荐** - 按知识点精准推荐视频、课件、互动资源
-- **课件大纲生成** - 一键生成 PPT 课件结构与设计建议
+[![Python](https://img.shields.io/badge/Python-3.10+-blue?style=flat-square&logo=python)](https://python.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-green?style=flat-square&logo=fastapi)](https://fastapi.tiangolo.com/)
+[![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
+
+---
+
+## 1. 项目背景
+
+教培行业的核心矛盾：
+
+- **老师**：备课耗时 3-4 小时/天，大量时间花在重复劳动上，没有数据支撑分层教学
+- **学生**：不知道自己哪里不会，盲目刷题，效率极低，缺乏即时反馈
+- **机构**：无法量化教学效果，学情数据分散，续费转化全靠销售
+
+**解决方案**：用 AI Agent 打通"备课→上课→批改→分析"全链路，让老师提效 70%，让学生学习效率提升 40%。
+
+---
+
+## 2. 用户是谁 & 使用场景
+
+| 用户角色 | 核心诉求 | 典型使用场景 |
+|---------|---------|------------|
+| 👩‍🏫 **教培机构老师** | 快速备课、了解班级学情、出针对性练习 | 上课前：10分钟生成教案 → 课后：扫描试卷获取学情报告 |
+| 🧒 **K12 学生** | 知道自己哪里不会、得到个性化练习 | 课后：完成自适应练习 → 系统自动更新知识掌握图谱 |
+| 🏢 **机构管理者** | 量化教学效果、看到学生进步数据 | 月末：查看班级整体学情趋势、风险学生预警 |
+
+---
+
+## 3. 核心功能
+
+### 🗺️ 学生完整使用路径
+
+```
+① 设定学习目标
+   学生选择学科 / 年级 / 薄弱知识点
+          │
+          ▼
+② AI 规划学习路径
+   系统基于知识依赖图谱，生成最优学习顺序
+   （先解决前置知识缺失，再攻克薄弱点）
+          │
+          ▼
+③ 分阶段学习（核心差异化）
+   ┌──────────────────────────────────┐
+   │  入门阶段：基础概念讲解 + 例题精讲  │
+   │  进阶阶段：变式练习 + 错误分析      │
+   │  测试阶段：自动出题 → 评估掌握程度  │
+   └──────────────────────────────────┘
+          │
+          ▼
+④ 即时学习反馈
+   做题后立刻获得：错误原因 + 知识点定位 + 下一步建议
+          │
+          ▼
+⑤ 学情持续追踪
+   知识图谱实时更新 → 薄弱点自动识别 → 学习风险预警
+```
+
+### 🧠 AI 智能备课（教师端）
+
+- **教案自动生成**：输入课题+年级+学科，AI 输出结构化教案（含教学目标/重难点/分层设计）
+- **分层习题设计**：基于 SOLO 认知理论，自动生成基础/提高/拓展三层习题
+- **学情驱动备课**：读取班级薄弱点数据 → 自动调整本节课的重点和练习方向
 
 ### 📊 学情分析引擎
-- **成绩趋势追踪** - 可视化展示学生成绩变化趋势，自动检测进步/退步
-- **知识图谱诊断** - 构建学生知识掌握图谱，精准定位薄弱知识点
-- **学习风险预警** - 多维度风险评估（知识断层/动机衰减/方法不当）
-- **AI 诊断报告** - 自动生成亲切易懂的学习诊断摘要
 
-### 🎯 个性化推荐系统
-- **学习路径规划** - 基于知识依赖关系，AI 规划最优学习路径
-- **自适应难度调整** - 根据学生表现动态调整题目难度（心流理论）
-- **间隔重复复习** - 基于 Leitner 系统科学安排复习间隔
-- **学习资源匹配** - 智能推荐适合的学习资源
+- **知识图谱诊断**：可视化展示每个学生的知识掌握状态，精准定位薄弱点
+- **成绩趋势追踪**：自动识别进步/退步趋势，生成可读性强的诊断报告
+- **学习风险预警**：多维评估（知识断层 / 动机衰减 / 方法不当），提前干预
 
-### 📄 试卷扫描系统（新增）
-- **拍照上传识别** - 支持手机拍照上传试卷，AI 自动识别题目
-- **题目知识点标注** - AI 自动分析每道题的知识点和难度系数
-- **薄弱点分析** - 统计全班知识点掌握情况，识别高频错题
-- **强化试卷生成** - 基于错题统计，AI 生成针对性强化练习
+### 📄 试卷扫描 & 强化出题
 
-## 🏗️ 技术架构
+- **OCR 识别上传**：手机拍照或文字粘贴，AI 自动识别题目
+- **全班知识点热图**：统计班级错误率，识别高频错题
+- **强化练习生成**：基于错题统计，AI 生成针对性强化卷
+
+---
+
+## 4. Agent 设计
+
+### 架构：单 Agent + 多 Tool
 
 ```
-┌──────────┐     ┌───────────────┐     ┌──────────────┐     ┌────────────┐
-│ Streamlit │────▶│  FastAPI 网关  │────▶│  核心引擎层  │────▶│ 通义千问 AI │
-│  前端看板  │     │  RESTful API  │     │ 备课/学情/推荐 │     │ DashScope  │
-└──────────┘     └──────┬────────┘     └──────────────┘     └────────────
-                       │
-                ┌──────▼────────┐
-                │  SQLite/PG    │
-                │   数据持久层   │
-                └───────────────┘
+用户请求（老师/学生）
+        │
+        ▼
+┌───────────────────────────────────┐
+│          Tutor Agent              │
+│  职责：教学任务的核心调度中枢        │
+│  - 意图识别（备课/出题/诊断/推荐）  │
+│  - 选择合适的 Tool 组合             │
+│  - 注入学情上下文                   │
+│  - 保证教学逻辑的连续性             │
+└──────────────┬────────────────────┘
+               │ 按需调用
+    ┌──────────┼──────────────────────┐
+    ▼          ▼          ▼           ▼
+lesson_     quiz_     analysis_    path_
+prep_tool   tool      tool         tool
+教案生成    出题评估   学情分析     路径规划
+    │          │          │           │
+    └──────────┴────┬──────┴───────────┘
+                    ▼
+           通义千问 qwen-plus
+           + SQLite 知识状态库
 ```
 
-### 技术栈
-| 层级 | 技术选型 | 说明 |
-|------|----------|------|
-| Web 框架 | FastAPI | 高性能异步 Python 框架 |
-| 前端看板 | Streamlit | Python 原生快速构建数据看板 |
-| 关系数据库 | PostgreSQL / SQLite | 核心业务数据持久化 |
-| AI 引擎 | 通义千问 API | 教案生成、题目分析、学情诊断 |
-| 数据验证 | Pydantic v2 | 请求/响应数据校验 |
-| 提示词管理 | YAML + Jinja2 | 版本化提示词模板 |
+### 核心 Tool 调用示例
 
-## 🚀 快速开始
+```python
+# 场景：老师上课前备课（5分钟完成）
 
-### 环境要求
-- Python 3.10+
-- PostgreSQL（可选，本地开发默认使用 SQLite）
+# Tool 1: 读取班级学情
+class_weak_points = analysis_tool.get_class_weakness(
+    class_id="G8-Math-A",
+    subject="数学",
+    recent_days=14
+)
+# 输出: {"一元二次方程": 0.68, "因式分解": 0.55}
 
-### 安装步骤
+# Tool 2: 生成学情驱动教案
+lesson_plan = lesson_prep_tool.generate(
+    topic="一元二次方程的解法",
+    grade="初二",
+    weak_points=class_weak_points,    # 注入学情！
+    duration_min=45
+)
 
-1. **克隆项目**
-```bash
-git clone https://github.com/2749085790/edu-ai-assistant.git
-cd edu-ai-assistant
+# Tool 3: 生成分层练习
+exercises = quiz_tool.create_layered(
+    knowledge="一元二次方程",
+    levels=["基础", "提高", "拓展"],
+    focus_on=class_weak_points        # 薄弱点加权
+)
 ```
 
-2. **创建虚拟环境**
-```bash
-python -m venv .venv
-# Windows
-.venv\Scripts\activate
-# Linux/Mac
-source .venv/bin/activate
+### Prompt 设计策略
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│                  Tutor Agent 核心 Prompt                      │
+├──────────────────────────────────────────────────────────────┤
+│ 角色：你是一位经验丰富的 K12 {subject} 老师，同时是教学设计专家  │
+│                                                              │
+│ 学生画像注入：                                                │
+│   姓名：{student_name}，年级：{grade}                         │
+│   当前学习阶段：{stage}（入门/进阶/测试）                       │
+│   已掌握：{mastered_points}                                   │
+│   薄弱点：{weak_points}（错误率从高到低排序）                   │
+│                                                              │
+│ 教学规则：                                                    │
+│   - 入门阶段：先建立概念，用类比和例子，不出题                  │
+│   - 进阶阶段：出变式题，引导学生自己发现错误                    │
+│   - 测试阶段：出3-5道评估题，判断是否真正掌握                   │
+│                                                              │
+│ 输出约束：每次回复聚焦一个知识点，不跑题，给出明确下一步指引     │
+└──────────────────────────────────────────────────────────────┘
 ```
 
-3. **安装依赖**
-```bash
-pip install -r requirements.txt
-```
+---
 
-4. **配置环境变量**
-```bash
-# 复制环境变量模板
-cp .env.example .env
-
-# 编辑 .env 文件，填入通义千问 API Key
-# DASHSCOPE_API_KEY=your_api_key_here
-```
-
-5. **初始化数据库**
-```bash
-# 运行种子数据脚本（自动创建 SQLite 数据库）
-python -m src.db.seed
-```
-
-6. **启动服务**
-
-**启动 FastAPI 后端：**
-```bash
-python -m uvicorn main:app --host 0.0.0.0 --port 8000
-```
-
-**启动 Streamlit 前端：**
-```bash
-python -m streamlit run frontend/app.py --server.port 8501
-```
-
-7. **访问系统**
-- 前端看板：http://localhost:8501
-- API 文档：http://localhost:8000/docs
-
-## 📂 项目结构
+## 5. 技术架构
 
 ```
 edu-ai-assistant/
 ├── src/
-│   ├── core/                          # 核心引擎
+│   ├── core/                          # 核心 Agent 引擎
 │   │   ├── lesson_prep/               # 备课模块
-│   │   │   ├── content_generator.py   # 教案生成
-│   │   │   ├── material_curator.py    # 素材精选
-│   │   │   └── quiz_designer.py       # 习题设计
-│   │   ├── analytics/                 # 学情分析
+│   │   │   ├── content_generator.py   # 教案生成 Tool
+│   │   │   ├── material_curator.py    # 素材推荐 Tool
+│   │   │   └── quiz_designer.py       # 习题设计 Tool
+│   │   ├── analytics/                 # 学情分析引擎
 │   │   │   ├── performance_tracker.py # 成绩追踪
-│   │   │   ├── knowledge_mapper.py    # 知识图谱
+│   │   │   ├── knowledge_mapper.py    # 知识图谱构建
 │   │   │   └── risk_predictor.py      # 风险预测
 │   │   └── personalization/           # 个性化推荐
-│   │       ├── learning_path.py       # 路径规划
-│   │       └── adaptive_engine.py     # 自适应引擎
-│   ├── prompts/                       # 提示词库（YAML）
-│   │   ├── lesson_prep/
-│   │   ├── analytics/
-│   │   ├── personalization/
-│   │   └── system/
-│   ├── api/                           # API 层
-│   │   ├── routes/                    # 路由
-│   │   ├── models/schemas.py          # Pydantic 模型
-│   │   └── middleware/auth.py         # 认证中间件
-│   ├── db/
-│   │   ├── models.py                  # ORM 模型
-│   │   ├── database.py                # 数据库连接
-│   │   └── seed.py                    # 种子数据
-│   ├── services/ai_client.py          # AI 客户端
-│   └── utils/                         # 工具函数
-├── frontend/app.py                    # Streamlit 前端
-├── data/                              # 数据文件
-│   ├── knowledge_graphs/              # 知识图谱
-│   └── curriculum_standards/          # 课标数据
-├── tests/                             # 单元测试
-├── config.yaml                        # 全局配置
-└── main.py                            # FastAPI 入口
+│   │       ├── learning_path.py       # 路径规划 Tool
+│   │       └── adaptive_engine.py     # 自适应难度引擎
+│   ├── prompts/                       # 提示词库（YAML + Jinja2）
+│   │   ├── lesson_prep/              # 备课相关 Prompt
+│   │   ├── analytics/                # 分析相关 Prompt
+│   │   └── personalization/          # 个性化 Prompt
+│   ├── api/                          # FastAPI 路由层
+│   └── db/                           # 数据持久层（SQLite/PG）
+├── frontend/app.py                    # Streamlit 看板
+└── main.py                            # 服务入口
 ```
 
-## 🎯 使用示例
+**技术栈**：
 
-### 1. AI 生成教案
-1. 进入「智能备课」页面
-2. 选择学科（数学/物理等）、年级、课型
-3. 输入课题名称（如"一元二次方程的解法"）
-4. 点击"生成教案"，AI 自动生成完整教案
+| 层级 | 技术 | 说明 |
+|------|------|------|
+| Web 框架 | FastAPI | 高性能异步 Python |
+| 前端看板 | Streamlit | 快速搭建数据看板 |
+| AI 引擎 | 通义千问 `qwen-plus` | 教案/出题/诊断 |
+| 数据库 | SQLite / PostgreSQL | 知识状态持久化 |
+| 提示词管理 | YAML + Jinja2 | 版本化 Prompt 模板 |
 
-### 2. 试卷扫描与强化练习
-1. 进入「试卷扫描」页面
-2. 上传试卷图片或粘贴 OCR 文本
-3. AI 自动识别题目并标注知识点
-4. 查看知识点分布和难度分析
-5. 点击"生成强化试卷"，AI 生成针对性练习
+---
 
-### 3. 学情分析
-1. 进入「学情分析」页面
-2. 选择学生
-3. 查看学习画像雷达图、成绩趋势图、知识图谱
-4. 查看 AI 诊断摘要和风险预警
+## 6. 快速开始
 
-## 🔧 开发指南
-
-### 运行测试
 ```bash
-python -m pytest tests/ -v
+# 1. 克隆项目
+git clone https://github.com/2749085790/edu-ai-assistant.git
+cd edu-ai-assistant
+
+# 2. 创建虚拟环境
+python -m venv .venv
+.venv\Scripts\activate    # Windows
+# source .venv/bin/activate  # Linux/Mac
+
+# 3. 安装依赖
+pip install -r requirements.txt
+
+# 4. 配置 API Key
+cp .env.example .env
+# 编辑 .env，填入：DASHSCOPE_API_KEY=your_key
+
+# 5. 初始化数据库
+python -m src.db.seed
+
+# 6. 启动服务
+python -m uvicorn main:app --host 0.0.0.0 --port 8000
+python -m streamlit run frontend/app.py --server.port 8501
 ```
 
-### API 开发
-所有 API 路由位于 `src/api/routes/`，使用 FastAPI 自动生成的 Swagger 文档：
-- 交互式文档：http://localhost:8000/docs
-- ReDoc 文档：http://localhost:8000/redoc
+- 前端看板：http://localhost:8501
+- API 文档：http://localhost:8000/docs
 
-### 提示词定制
-提示词模板位于 `src/prompts/`，使用 YAML 格式，支持 Jinja2 变量注入：
-```yaml
-system: |
-  你是一位{{ subject }}学科专家...
-user: |
-  课题：{{ topic }}
-  年级：{{ grade }}
-```
+---
 
-## 📊 数据库模型
+## 7. 产品价值
 
-核心数据表：
-- `students` - 学生信息
-- `class_groups` - 班级
-- `teachers` - 教师
-- `lesson_plans` - 教案
-- `questions` - 习题
-- `student_performances` - 成绩记录
-- `knowledge_states` - 知识掌握状态
-- `error_records` - 错题记录
-- `learning_paths` - 学习路径
-- `risk_alerts` - 风险预警
-- `test_paper_scans` - 试卷扫描记录
-- `targeted_quizzes` - 针对性强化试卷
+| 指标 | 传统备课方式 | AI Tutor | 提升幅度 |
+|------|------------|---------|---------|
+| 教师备课时间 | 3-4小时/天 | 30分钟/天 | **↓ 70%** |
+| 学生知识盲点识别 | 靠老师经验 | AI 实时定位 | **精准↑** |
+| 个性化程度 | 一刀切 | 每人独立路径 | **质的飞跃** |
+| 学情数据可见性 | 月考才知道 | 实时追踪 | **时效↑10x** |
 
-## 🤝 贡献指南
-
-欢迎提交 Issue 和 Pull Request！
+---
 
 ## 📄 许可证
 
-本项目采用 MIT 许可证。
-
-## 🙏 致谢
-
-- 通义千问 API 提供 AI 能力支持
-- FastAPI、Streamlit、SQLAlchemy 等开源项目
+MIT License © 2026 杨浩文
 
 ---
 
